@@ -13,9 +13,12 @@ Our checkout accepts items in any order, so that if we scan a B, an A, and anoth
 
 The interface to the checkout should look like:
 
+
 co = CheckOut.new(pricing_rules)
+
 co.scan(item)
+
 co.scan(item)
-    :    :
+    
 price = co.total
 
