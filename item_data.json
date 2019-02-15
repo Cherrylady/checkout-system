@@ -1,0 +1,20 @@
+[{
+	"name": "A",
+	"price": 50,
+	"promotion": true
+},
+{
+	"name": "B",
+	"price": 30,
+	"promotion": true
+},
+{
+	"name": "C",
+	"price": 20,
+	"promotion": true
+},
+{
+	"name": "D",
+	"price": 15,
+	"promotion": true
+}]
