@@ -1,14 +1,15 @@
-#require "json"
+require "json"
 
 class Item
-  attr_reader :items
+  attr_reader :name, :price
 
-  def initialize
-    @items = read_data
+  def initialize(name, price)
+    @name = name
+    @price = price
   end
 
-  def read_data
+  def self.load_all
     f = File.read("./item_data.json")
-    JSON.parse(f)
+    JSON.parse(f).map{ |item| Item.new(item["name"], item["price"]) }
   end
 end

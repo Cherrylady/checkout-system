@@ -1,32 +1,34 @@
 require "json"
 require_relative "basket"
 require_relative "item"
+require "pry"
 
 class CheckOut
-
+  attr_reader :items
   def initialize(rules)
-    @items = Item.new
-    @basket = Basket.new
     @rules = rules
+    @items = Item.load_all
+    @basket = Basket.new
   end
 
   def scan(item_name)
-    @basket.basket << @items.items.select { |item| item["name"] == item_name }.first
+    @basket.container << @items.select {|item| item.name == item_name }
   end
 
   def total
-    prices = []
+    total_price = []
 
-    @basket.basket.each do |item|
-      prices << item["price"]
+    @basket.container.flatten.each do |item|
+      total_price << item.price
     end
     @rules.each do |rule|
-      quantity = @basket.basket.select { |item| item["name"] == rule[:item_name] }.count
-      rule_number = quantity / rule[:quantity]
+      rule[:item_name]
+      quantity = @basket.quantity(rule[:item_name])
+      rule_number =  quantity / rule[:quantity]
       rule_number.times do
-        prices << rule[:discount]
+        total_price << rule[:discount]
       end
     end
-    prices.sum
+    total_price.sum
   end
 end

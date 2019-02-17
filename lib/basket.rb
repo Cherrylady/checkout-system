@@ -1,6 +1,11 @@
 class Basket
-  attr_reader :basket
+  attr_reader :container
+
   def initialize
-    @basket = []
+    @container = []
+  end
+
+  def quantity(item_name)
+    @container.flatten.select { |item| item.name == item_name }.count
   end
 end
