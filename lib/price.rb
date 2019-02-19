@@ -1,10 +1,8 @@
 require "json"
 require_relative "basket"
 require_relative "item"
-require "pry"
 
 class CheckOut
-  attr_reader :items
   def initialize(rules)
     @rules = rules
     @items = Item.load_all
@@ -12,7 +10,7 @@ class CheckOut
   end
 
   def scan(item_name)
-    @basket.container << @items.select {|item| item.name == item_name }
+    @basket.container << @items.select {|item| item.name == item_name }.first
   end
 
   def total
