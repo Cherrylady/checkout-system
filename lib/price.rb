@@ -10,17 +10,16 @@ class CheckOut
   end
 
   def scan(item_name)
-    @basket.container << @items.select {|item| item.name == item_name }.first
+    @basket.container << @items.find {|item| item.name == item_name }
   end
 
   def total
     total_price = []
 
-    @basket.container.flatten.each do |item|
+    @basket.container.map do |item|
       total_price << item.price
     end
     @rules.each do |rule|
-      rule[:item_name]
       quantity = @basket.quantity(rule[:item_name])
       rule_number =  quantity / rule[:quantity]
       rule_number.times do
@@ -30,3 +29,7 @@ class CheckOut
     total_price.sum
   end
 end
+
+co = CheckOut.new([{item_name: "A", quantity: 3, discount: -20}, {item_name: "B", quantity: 2, discount: -15}])
+p co.scan("A")
+p co.total
